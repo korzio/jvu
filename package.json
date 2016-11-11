@@ -1,0 +1,33 @@
+{
+  "name": "jvu",
+  "version": "0.1.0",
+  "description": "Json-schema Validator Utilities",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/korzio/jvu.git"
+  },
+  "keywords": [
+    "json-schema",
+    "json",
+    "schema",
+    "functional",
+    "fp",
+    "matching-patern",
+    "matching",
+    "pattern",
+    "if-less",
+    "case-classes",
+    "validator",
+    "utils",
+    "utilities"
+  ],
+  "author": "Alexander Korzhikov <korzio@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/korzio/jvu/issues"
+  }
+}
