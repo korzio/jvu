@@ -2,9 +2,10 @@
   "name": "jvu",
   "version": "0.0.1-alpha.0",
   "description": "Json-schema Validator Utilities",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json",
+    "lint": "eslint lib/index.js"
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,13 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/korzio/jvu/issues"
+  },
+  "devDependencies": {
+    "djv": "^0.1.3",
+    "eslint": "^3.10.0",
+    "eslint-config-airbnb-base": "^10.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jasmine": "^2.1.0",
+    "jasmine": "^2.5.2"
   }
 }
