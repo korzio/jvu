@@ -37,8 +37,8 @@ Lots of things, but this package is about functional programming and awesome tec
 ## List of supported json-schema validators
 
 - **djv**
-- **ajv**
-- **jjv**
+<!-- - **ajv**
+- **jjv** -->
 
 ## Usage
 
@@ -68,17 +68,26 @@ jvu = require('jvu')(validator);
 
 Validator environment is available with a `jvu.env` link. However, created `jvu` environment is actually inherited from validator environment, so you can use it if it does not intercept. This is done for the reason to decrease API changes needed to integrate `jvu` to existing code.
 
-Use `addSchema` to add json schema after initialization
+Use `add` to add json schema after initialization
 ```
-jvu.addSchema('', jsonSchema);
+jvu.add('', jsonSchema);
 ```
 
 ### jvu('', {}) or validate
 
 Use `validate/is` to validate an object by schema reference
 ```
-jvu('#/common', { type: 'common' }) // => true
+jvu.validate('#/common', { type: 'common' }) // => true
 jvu.is('#/common', { type: 'common' }) // => true
+```
+
+`jvu('')` is a short notation for `validate`.
+When it's called without a second argument returns a validation function, which can be used in further calculations.
+```
+jvu('#/common', { type: 'common' }) // => true
+...
+const validate = jvu('#/common');
+validate({ type: 'common' }) // => true
 ```
 
 ### jvu('') or generate
