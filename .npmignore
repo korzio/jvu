@@ -1,3 +1,4 @@
 .eslintrc
 jasmine.json
 *.spec.js
+.travis.yml

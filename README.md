@@ -1,5 +1,7 @@
 # JVU
 
+[![Build Status](https://travis-ci.org/korzio/jvu.svg?branch=master)](https://travis-ci.org/korzio/jvu)
+
 Json-schema Validator Utilities
 
 [Json-schema](https://tools.ietf.org/html/draft-zyp-json-schema-04) is a declaration of document type in a json format.
