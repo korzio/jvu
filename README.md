@@ -11,7 +11,7 @@ What are reasons to use json-schema?
 - Validation (type checking)
 - Protocols (database & API description)
 
-What else?
+Anything else?
 Lots of things, but this package is about functional programming and awesome techniques, that can be achieved with json-schema usage:
 - [Matching pattern](https://en.wikipedia.org/wiki/Pattern_matching)
 - [Case Classes pattern](http://docs.scala-lang.org/tutorials/tour/case-classes.html)
@@ -38,9 +38,7 @@ Lots of things, but this package is about functional programming and awesome tec
 
 ## List of supported json-schema validators
 
-- **djv**
-<!-- - **ajv**
-- **jjv** -->
+- **[djv](https://www.npmjs.com/package/djv)**
 
 ## Usage
 
@@ -184,13 +182,7 @@ jvu.find({ '#/common': 1 }, unknownObj) // => undefined
 - **find(Object/Array types[, Object instance])** iterates through an object or array to find appropriate schema to given argument. Returns `undefined` if not found.
 - **env** original environment
 
-## TODO
-
-- move env to prototype
-- test 3rd party libraries
-- Lots of things link
-- Validators basic protocol schema
-
 ## References
 
+- [djv - dynamic json-schema validator](https://www.npmjs.com/package/djv)
 - [funcy - Functional Pattern Matching in JavaScript](https://github.com/bramstein/funcy)
