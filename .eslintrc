@@ -8,5 +8,14 @@
   ],
   "env": {
     "jasmine": true
+  },
+  "rules": {
+    "comma-dangle": [
+      "error",
+      {
+        "objects": "always-multiline",
+        "functions": "never"
+      }
+    ]
   }
 }
