@@ -27,7 +27,6 @@ Lots of things, but this package is about functional programming and awesome tec
 - jvu('', object) or `validate/is`
 
 // new API
-- jvu('') or `generate`
 - jvu.match({ '': value })
 - jvu.find([''])
 
@@ -62,6 +61,7 @@ jsonSchema = {
 ### initialize & add schema
 
 Utils will create an empty environment with a given validator.
+
 ```
 jvu = require('jvu')(validator);
 ```
@@ -69,42 +69,44 @@ jvu = require('jvu')(validator);
 Validator environment is available with a `jvu.env` link. However, created `jvu` environment is actually inherited from validator environment, so you can use it if it does not intercept. This is done for the reason to decrease API changes needed to integrate `jvu` to existing code.
 
 Use `add` to add json schema after initialization
+
 ```
 jvu.add('', jsonSchema);
 ```
 
-### jvu('', {}) or validate
+### jvu('', ?) - validate/is
 
-Use `validate/is` to validate an object by schema reference
+Use `validate/is` to validate an object by schema reference.
+`jvu('', ?)` is a short notation for `validate/is`.
+
 ```
 jvu.validate('#/common', { type: 'common' }) // => true
-jvu.is('#/common', { type: 'common' }) // => true
+jvu.is('#/other', { type: 'common' }) // => false
+jvu('#/other', { type: 'common' }) // => false
 ```
 
-`jvu('')` is a short notation for `validate`.
-When it's called without a second argument returns a validation function, which can be used in further calculations.
+When it's called without a second argument - it returns a validation function, which can be used in further calculations.
+
 ```
-jvu('#/common', { type: 'common' }) // => true
-...
 const validate = jvu('#/common');
 validate({ type: 'common' }) // => true
 ```
 
-### jvu('') or generate
+The generataed validation function accept object as a param and returns boolean `isValid` flag, if an object matches to a given path.
+- **one argument** - partial execution,
+- **two arguments** - returns a value.
 
-One of the `jvu` public methods is `generate` which literally generates a validation function from a registered json schema path. The validation function accept object as a param and returns `Boolean` flag, if an object matches to a given path.
-For easily usage `generate` has a shorthand, which is `jvu` itself with first argument given as a path or schema. This doesn't conflict with `validate/is` method or its shorthand:
-- one argument - partial execution,
-- two arguments - returns a value.
-Don't afraid to use `generate` function often - it caches all generated validation functions, so for one environment it will generate 1 function for 1 path.
-```JavaScript
+It caches all generated validation functions, so for one environment it will generate 1 function for 1 path.
+
+```
 var testCommon = jvu('#/common');
 [commonObj].map(testCommon) // => [true]
 
 var testNotCommon = jvu.generate('#/common', true);
 [commonObj].map(testNotCommon) // => [false]
 ```
-`Generate` method is very helpful in `each`, `find` and other iterable functions.
+
+Partial execution is very helpful in `each`, `find` and other iterable operations.
 
 ### jvu.match({}, ?)
 
@@ -115,7 +117,10 @@ jvu.match({ '#/common': () => 1 }, commonObj) // => 1
 jvu.match({ '#/common': () => 1 }, unknownObj) // => undefined
 ```
 
-Factorial example from [funcy](https://github.com/bramstein/funcy) package
+#### Factorial
+
+This comes from [funcy](https://github.com/bramstein/funcy) package
+
 ```
 const fact = jvu.match({
     '#/0': () => 1,
@@ -125,7 +130,6 @@ const fact = jvu.match({
 fact(5) // => 120
 ```
 
-Immediate execution
 ```
 jvu.match({
     '#/0': () => 0,
@@ -133,7 +137,8 @@ jvu.match({
 }, 0); // => 1
 ```
 
-[if-less](http://alisnic.github.io/posts/ifless/)
+#### [if-less](http://alisnic.github.io/posts/ifless/)
+
 ```
 /**
 if(doSomething() === null)
@@ -147,6 +152,8 @@ jvu.match({
   '#/other': () => 1,
 })(doSomething())
 ```
+
+#### Declarative Promises
 
 A better example of `if-less` or `Matching Pattern` would be a stream (in Reactive Programming) or Promise chain
 ```
@@ -168,15 +175,17 @@ new Promise((resolve, reject) => resolve({ type: 'common' }))
 ### jvu.find({}, ?)
 
 Use `find` to ease a `switch` condition. A difference between `match` is that `find` only returns a given result, when `match` is also executing found expression. Both `find` and `match` method can use either object or array as a param.
+
 ```
 jvu.find(['#/common'], commonObj) // => 0
 jvu.find({ '#/common': 1 }, unknownObj) // => undefined
 ```
 
+When executed with an object it returns a value by found key, but when executed with an array returns an index of founded item. It looks a bit inconsistent, nevetheless it has a reason to output an oposite information comparing to input.
+
 ## API
 
 - **add(String namespace, Object jsonSchema)** add schema to existing environment
-- **jvu(String reference[, Boolean isReverse])** generates function to use in functional expressions, shorthands - **generate**
 - **jvu(String/Object reference[, Object instance])** validate object by schema reference, shorthands - **validate**, **is**
 - **match(Object/Array types[, Object instance])** iterates through an object or array to match appropriate schema to given argument. Executes found function. Returns `undefined` if not found.
 - **find(Object/Array types[, Object instance])** iterates through an object or array to find appropriate schema to given argument. Returns `undefined` if not found.
