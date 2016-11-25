@@ -1,0 +1,12 @@
+{
+  "type": "function",
+  "env": {
+    "type": "object",
+    "properties": {
+      "validate": {
+        "type": "function"
+      }
+    },
+    "required": ["validate"]
+  }
+}
