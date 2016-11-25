@@ -76,7 +76,7 @@ jvu.add('', jsonSchema);
 
 ### jvu('', ?) - validate/is
 
-Use `validate/is` to validate an object by schema reference.
+Use `validate/is` to check an object by schema reference.
 `jvu('', ?)` is a short notation for `validate/is`.
 
 ```
@@ -92,7 +92,7 @@ const validate = jvu('#/common');
 validate({ type: 'common' }) // => true
 ```
 
-The generataed validation function accept object as a param and returns boolean `isValid` flag, if an object matches to a given path.
+The generated validation function accepts object as a param and returns the `isValid` flag.
 - **one argument** - partial execution,
 - **two arguments** - returns a value.
 
@@ -115,6 +115,12 @@ Use `match` as a [Matching pattern](https://en.wikipedia.org/wiki/Pattern_matchi
 ```
 jvu.match({ '#/common': () => 1 }, commonObj) // => 1
 jvu.match({ '#/common': () => 1 }, unknownObj) // => undefined
+
+// ...
+jvu.match({
+    '#/0': () => 0,
+    '#/other': () => 1
+}, 0); // => 1
 ```
 
 #### Factorial
@@ -130,27 +136,20 @@ const fact = jvu.match({
 fact(5) // => 120
 ```
 
-```
-jvu.match({
-    '#/0': () => 0,
-    '#/other': () => 1
-}, 0); // => 1
-```
-
 #### [if-less](http://alisnic.github.io/posts/ifless/)
 
 ```
 /**
-if(doSomething() === null)
+if(some === null)
   #something is wrong
 else
   #process
 */// =>
 
 jvu.match({
-  '#/null': () => NaN,
-  '#/other': () => 1,
-})(doSomething())
+  '#/null': () => throw new Error('#/null'),
+  '#/other': process,
+}, some)
 ```
 
 #### Declarative Promises
