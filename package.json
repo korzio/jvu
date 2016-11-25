@@ -1,6 +1,6 @@
 {
   "name": "jvu",
-  "version": "0.0.1-alpha.3",
+  "version": "0.0.1-alpha.4",
   "description": "Json-schema Validator Utilities",
   "main": "lib/index.js",
   "scripts": {
