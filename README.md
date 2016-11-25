@@ -19,7 +19,7 @@ Lots of things, but this package is about functional programming and awesome tec
 
 ## Features
 
-- Use any json-schema validator (which support basic protocol)
+- Use any json-schema validator (which supports [basic protocol](https://github.com/korzio/jvu/blob/master/lib/validator.spec.json))
 - Expose native environment API
 
 // shorthands for native API
