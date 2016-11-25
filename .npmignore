@@ -1,4 +1,7 @@
 .eslintrc
+.npmignore
+.vscode
+.travis.yml
 jasmine.json
 *.spec.js
-.travis.yml
+*.spec.json
