@@ -29,6 +29,7 @@ Lots of things, but this package is about functional programming and awesome tec
 // new API
 - jvu.match({ '': value })
 - jvu.find([''])
+- jvu.filter([''])
 
 ## Terms
 
@@ -41,24 +42,24 @@ Lots of things, but this package is about functional programming and awesome tec
 
 ## Usage
 
-Lets have an example - jsonSchema
+Lets have an example schema
 
 ```
 jsonSchema = {
-    "common": {
-        "properties": {
-            "type": {
-                "enum": ["common"]
-            }
-        },
-        "required": [
-            "type"
-        ]
-    }
+  "common": {
+    "properties": {
+      "type": {
+        "enum": ["common"]
+      }
+    },
+    "required": [
+      "type"
+    ]
+  }
 };
 ```
 
-### initialize & add schema
+### initialize & add
 
 Utils will create an empty environment with a given validator.
 
@@ -118,8 +119,8 @@ jvu.match({ '#/common': () => 1 }, unknownObj) // => undefined
 
 // ...
 jvu.match({
-    '#/0': () => 0,
-    '#/other': () => 1
+  '#/0': () => 0,
+  '#/other': () => 1
 }, 0); // => 1
 ```
 
@@ -129,8 +130,8 @@ This comes from [funcy](https://github.com/bramstein/funcy) package
 
 ```
 const fact = jvu.match({
-    '#/0': () => 1,
-    '#/other': n => n * fact(n - 1)
+  '#/0': () => 1,
+  '#/other': n => n * fact(n - 1)
 });
 
 fact(5) // => 120
@@ -140,10 +141,8 @@ fact(5) // => 120
 
 ```
 /**
-if(some === null)
-  #something is wrong
-else
-  #process
+if(some === null) { throw new Error('#/null') }
+else { process() }
 */// =>
 
 jvu.match({
@@ -158,15 +157,15 @@ A better example of `if-less` or `Matching Pattern` would be a stream (in Reacti
 ```
 new Promise((resolve, reject) => resolve({ type: 'common' }))
 .then(
-    jvu.match({
-        '#/null': () => 'so far so good',
-        '#/common': () => 'common',
-        '#/other': () => 'enough',
-    }),
-    jvu.match({
-        '#/error/system': () => 'this is bad',
-        '#/error/common': () => '\_(ツ)_/¯',
-    })
+  jvu.match({
+    '#/null': () => 'so far so good',
+    '#/common': () => 'common',
+    '#/other': () => 'enough',
+  }),
+  jvu.match({
+    '#/error/system': () => 'this is bad',
+    '#/error/common': () => '\_(ツ)_/¯',
+  })
 )
 .then(result => console.log(result)); // => 'common'
 ```
@@ -182,12 +181,21 @@ jvu.find({ '#/common': 1 }, unknownObj) // => undefined
 
 When executed with an object it returns a value by found key, but when executed with an array returns an index of founded item. It looks a bit inconsistent, nevetheless it has a reason to output an oposite information comparing to input.
 
+### jvu.filter({}, ?)
+
+Filters all appropriate pathes. This pattern does not exist with a function call (like `match` is a `find` with call).
+
+```
+jvu.filter({ '#/common': 1, '#/all': 2 }, unknownObj) // => [1, 2]
+```
+
 ## API
 
 - **add(String namespace, Object jsonSchema)** add schema to existing environment
-- **jvu(String/Object reference[, Object instance])** validate object by schema reference, shorthands - **validate**, **is**
-- **match(Object/Array types[, Object instance])** iterates through an object or array to match appropriate schema to given argument. Executes found function. Returns `undefined` if not found.
-- **find(Object/Array types[, Object instance])** iterates through an object or array to find appropriate schema to given argument. Returns `undefined` if not found.
+- **jvu(String/Object reference[, Object instance])** validate object by schema reference. Shorthands - **validate**, **is**
+- **match(Object/Array types[, Object instance])** iterates through an object or array to match appropriate schema for given argument. Executes found function. Returns `undefined` if not found.
+- **find(Object/Array types[, Object instance])** iterates through an object or array to find appropriate schema for given argument. Returns `undefined` if not found.
+- **filter(Object/Array types[, Object instance])** iterates through an object or array to filter appropriate schemas for given argument. Returns `Array` with values.
 - **env** original environment
 
 ## References
