@@ -97,8 +97,6 @@ The generated validation function accepts object as a param and returns the `isV
 - **one argument** - partial execution,
 - **two arguments** - returns a value.
 
-It caches all generated validation functions, so for one environment it will generate 1 function for 1 path.
-
 ```
 var testCommon = jvu('#/common');
 [commonObj].map(testCommon) // => [true]
