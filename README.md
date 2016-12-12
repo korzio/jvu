@@ -118,6 +118,16 @@ var testNotCommon = jvu.generate('#/common', true);
 
 Partial execution is very helpful in `each`, `find` and other iterable operations.
 
+### jvu.not('', ?) - !jvu.is
+
+Same functionality as `jvu.is` but with an oposite meaning.
+Validation function returns the `isNotValid` flag.
+
+```
+jvu.not('#/common', { type: 'common' }) // => false
+jvu.not('#/other', { type: 'common' }) // => true
+```
+
 ### jvu.match({}, ?)
 
 Use `match` as a [Matching pattern](https://en.wikipedia.org/wiki/Pattern_matching).
@@ -202,6 +212,7 @@ jvu.filter({ '#/common': 1, '#/all': 2 }, unknownObj) // => [1, 2]
 
 - **add(String namespace, Object jsonSchema)** add schema to existing environment
 - **jvu(String/Object reference[, Object instance])** validate object by schema reference. Shorthands - **validate**, **is**
+- **not(String/Object reference[, Object instance])** validate object by schema reference with negative case.
 - **match(Object/Array types[, Object instance])** iterates through an object or array to match appropriate schema for given argument. Executes found function. Returns `undefined` if not found.
 - **find(Object/Array types[, Object instance])** iterates through an object or array to find appropriate schema for given argument. Returns `undefined` if not found.
 - **filter(Object/Array types[, Object instance])** iterates through an object or array to filter appropriate schemas for given argument. Returns `Array` with values.
