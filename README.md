@@ -19,7 +19,7 @@ Lots of things, but this package is about functional programming and awesome tec
 
 ## Features
 
-- Use any json-schema validator (which supports [basic protocol](https://github.com/korzio/jvu/blob/master/lib/validator.spec.json))
+- Use any json-schema validator
 - Expose native environment API
 
 // shorthands for native API
@@ -27,6 +27,7 @@ Lots of things, but this package is about functional programming and awesome tec
 - jvu('', object) or `validate/is`
 
 // new API
+- jvu.not('', object)
 - jvu.match({ '': value })
 - jvu.find([''])
 - jvu.filter([''])
@@ -38,7 +39,7 @@ Lots of things, but this package is about functional programming and awesome tec
 
 ## Support
 
-List of supported json-schema validators
+List of supported validators
 
 - **[djv](https://www.npmjs.com/package/djv)**
 - **[jjv](https://www.npmjs.com/package/jjv)**
@@ -47,6 +48,7 @@ Adapter required
 
 - **[ajv](https://www.npmjs.com/package/ajv)**
 
+Main protocol required by this package is to have `addSchema` and `validate` methods inside created environment. For special cases adapter functions can be defined.
 Examples of adapters can be found in a [support.spec.js](https://github.com/korzio/jvu/blob/master/lib/support.spec.js#L3).
 
 ## Usage
