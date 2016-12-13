@@ -41,6 +41,13 @@ Lots of things, but this package is about functional programming and awesome tec
 List of supported json-schema validators
 
 - **[djv](https://www.npmjs.com/package/djv)**
+- **[jjv](https://www.npmjs.com/package/jjv)**
+
+Adapter required
+
+- **[ajv](https://www.npmjs.com/package/ajv)**
+
+Examples of adapters can be found in a [support.spec.js](https://github.com/korzio/jvu/blob/master/lib/support.spec.js#L3).
 
 ## Usage
 
