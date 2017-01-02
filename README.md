@@ -48,7 +48,7 @@ Adapter required
 
 - **[ajv](https://www.npmjs.com/package/ajv)**
 
-Main protocol required by this package is to have `addSchema` and `validate` methods inside created environment. For special cases adapter functions can be defined.
+The main protocol required by this package is to have `addSchema` and `validate` methods inside a created environment. For special cases adapter functions can be defined.
 Examples of adapters can be found in a [support.spec.js](https://github.com/korzio/jvu/blob/master/lib/support.spec.js#L3).
 
 ## Usage
@@ -70,6 +70,12 @@ jsonSchema = {
 };
 ```
 
+It defines a `common` object type, which has a `type` property with a single value `common`.
+
+```
+{ type : 'common' } // => valid by '#/common' path
+```
+
 ### initialize & add
 
 Utils will create an empty environment with a given validator.
@@ -87,7 +93,7 @@ jvu = require('jvu')(validator, validator => ({
 }))
 ```
 
-Validator environment is available with a `jvu.env` link. However, created `jvu` environment is actually inherited from validator environment, so you can use it if it does not intercept. This is done for the reason to decrease API changes needed to integrate `jvu` to existing code.
+Validator environment is available with a `jvu.env` link. However, created `jvu` environment is extended with validator environment, so you can use it if it does not intercept. This is done for the reason to decrease API changes needed to integrate `jvu` to existing code.
 
 Use `add` to add json schema after initialization
 
@@ -121,7 +127,7 @@ The generated validation function accepts object as a param and returns the `isV
 var testCommon = jvu('#/common');
 [commonObj].map(testCommon) // => [true]
 
-var testNotCommon = jvu.generate('#/common', true);
+var testNotCommon = jvu('#/common', true);
 [commonObj].map(testNotCommon) // => [false]
 ```
 
