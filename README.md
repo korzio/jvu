@@ -135,7 +135,7 @@ Partial execution is very helpful in `each`, `find` and other iterable operation
 
 ### jvu.not('', ?) - !jvu.is
 
-Same functionality as `jvu.is` but with an oposite meaning.
+Same functionality as `jvu.is` but with an opposite meaning.
 Validation function returns the `isNotValid` flag.
 
 ```
@@ -213,7 +213,7 @@ jvu.find(['#/common'], commonObj) // => 0
 jvu.find({ '#/common': 1 }, unknownObj) // => undefined
 ```
 
-When executed with an object it returns a value by found key, but when executed with an array returns an index of founded item. It looks a bit inconsistent, nevetheless it has a reason to output an oposite information comparing to input.
+When executed with an object it returns a value by found key, but when executed with an array returns an index of founded item. It looks a bit inconsistent, nevertheless it has a reason to output an opposite information comparing to input.
 
 ### jvu.filter({}, ?)
 
